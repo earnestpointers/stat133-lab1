@@ -1,0 +1,218 @@
+---
+title: "Lab 1: Basics of R"
+author: "Bryant Luong"
+date: "2017-09-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Your Turn: Leia's expenses
+```{r Leia}
+# total expenses
+80 + 20 + 527 + 10 + 1500 + 83
+
+# first assignment statement
+phone <- 80
+phone
+
+# variables
+transportation <- 20
+groceries <- 527
+gym <- 10
+rent <- 1500
+other <- 83
+
+# month
+length.month <- 1
+total <- (phone + transportation + groceries + gym + rent + other) * length.month
+total
+
+# semester
+length.semester <- 5
+semester.total <- total * length.semester
+semester.total
+
+# year
+length.year <- 10
+year.total <- total * length.year
+year.total
+
+# Creating the vector named expenses
+expenses <- c(phone, transportation, groceries, gym, rent, other)
+expenses
+
+# Barplot, unsorted
+barplot(expenses)
+
+# Sort expenses in decreasing order
+expenses.sorted <- sort(expenses, decreasing = TRUE)
+
+## Find a range of y's that'll leave sufficient space above the tallest bar
+ylim <- c(0, 1.1*max(expenses.sorted))
+
+# Barplot, sorted in decreasing order
+leia <- barplot(height = expenses.sorted, 
+        main = "Leia's Monthly Expenses",
+        ylab = "Dollars", 
+        ylim = ylim,
+        names.arg = c("rent", "groceries", "other", "phone", "transportation", "gym"),
+        las = 2,
+        axisnames = TRUE,
+        cex.names = 0.8)
+
+# Add values of each variable to top of each bar
+text(x = leia, 
+     y = expenses.sorted,
+     labels = expenses.sorted,
+     pos = 3, 
+     cex = 0.8)
+``` 
+
+### Your Turn: Pythagorean Theorem
+```{r Pythagorean Theorem}
+# Initializing variables with values
+a <- 3
+b <- 4
+a_squared <- a ^ 2
+a_squared
+b_squared <- b ^ 2
+b_squared
+
+# Computing the length of the hypotenuse
+c <- sqrt(a_squared + b_squared)
+c
+```
+
+### Your Turn: binomial formula
+```{r Binomial Formula}
+n <- 5 # number of trials
+k <- 2 # number of successes
+p <- 0.5 # probability of success
+q <- 1 - p # probability of failure
+
+# n choose k using factorial function
+(factorial(n) / (factorial(k) * factorial(n - k)))
+
+# probability of 2 heads in 5 trials using factorial function and binomial formula
+(factorial(n) / (factorial(k) * factorial(n - k))) * p ^ k * (1 - p) ^ (n - k)
+
+# probability of 2 heads in 5 trials using choose function and binomial formula
+choose(n, k) * (p ^ k) * (p ^ (n - k))
+
+# parameters for rolling die
+p_die <- 1 / 6
+n_die <- 10
+k_die <- 3
+
+# probability of 3 sixes in 10 rolls
+choose(n_die, k_die) * (p_die ^ k_die) * (1 - p_die) ^ (n_die - k_die)
+
+# probability of 2 heads in 5 coin tosses
+dbinom(2, 5, 0.5)
+
+# probability of 3 sixes in 3 rolls
+dbinom(3, 3,  1/6)
+
+# probability of 2 heads in 5 coins with a biased coin with chance of heads of 35%
+dbinom(2, 5, 0.35)
+
+# probability of 3 heads in 5 coins with a biased coin with chance of heads of 35%
+dbinom(3, 5, 0.35)
+```
+
+### Your Turn: installing packages
+```{r IP}
+# creating object named x with value 2
+x <- 2
+
+# calculating polynomial when x is a value
+3 * x ^ 2 + 4 * x + 8
+
+# creating vector named x with values from -3 to 3
+x <- -3:3
+
+# calculating polynomial when x is a value
+3 * x ^ 2 + 4 * x + 8
+```
+#### What is the **Files** tab good for?
+The **Files** tab shows the directories and files that are stored in the computer. A user can locate and select files in the **Files** tab. Once a file is selected in this tab, the file will open in the **Source** tab of RStudio.
+
+#### What about the tab **Help**?
+The **Help** tab shows information about R and RStudio.
+The information ranges from how to use features of RStudio to parameter information for all R functions.
+
+#### In the tab **Help**, what happens when you click the button with a House icon?
+The **Help** tab returns to the home screen and displays the five main sections:
+
+1. R Resources
+2. RStudio
+3. Manuals
+4. Reference
+5. Miscellaneous Material
+
+#### What is the **History** tab good for?
+The **History** tab is a list of commands that have been executed. The buttons in the menu from left to right are
+
+1. Load history from an existing file
+2. Save history into a file 
+3. Send the selected commands to the R console 
+4. Insert the selected commands into the current document
+5. Remove the selected entries
+6. Clear all history entries
+
+#### What is the **Environment** tab good for?
+The **Environment** tab is a list of objects with their type, length, size, and value. The buttons in the menu from left to right are
+
+1. Open environment from file 
+2. Save environment to file
+3. Import datasheet
+4. Clear environment
+5. Toggle environment list between grid and list view
+6. Refresh list
+
+### Review Questions
+#### My Guesses
+```{r}
+# example 1
+# var<-3
+# Var*2
+````
+Error because the object Var is not defined.
+
+```{r}
+# example 2
+# x<-2
+#2x<-2*x
+```
+Error because object names cannot start with a number.
+
+```{r}
+# example 3
+# sqrt4 <- sqrt(4)
+```
+Nothing will be returned but the object "sqrt4" will be created with the value 2.
+
+```{r}
+# example 4
+# a number <- 16
+```
+Error because object names cannot have spaces.
+
+```{r}
+# example 5
+# "one number" <- 16
+# `one number`
+# one number
+```
+The first command will create an object named one number with the value 16. The second command will return the object's value 16. The third command will trigger an error because the object is not defined.
+
+### RStudio working environment
+
+1. The **Source** tab displays source code.
+2. The **Console** tab displays the R console. In this tab, R code can be written and executed.
+3. The **Environment** tab displays objects that are in the environment and the **History** tab lists commands that have been executed.
+4. The **Files** tab is a file viewer. Users can locate and select files in this tab. The **Plots** tab displays plots when a plot command is executed in the console. The **Packages** tab lists all of the packages that are installed and the packages that are in use in the environment. The **Help** tab contains information about R packages and the features of RStudio. The **Viewer** tab can display local web content and applications.
